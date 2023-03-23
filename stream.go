@@ -268,9 +268,6 @@ func (s *streamKey) trim(n int) {
 // trimBefore deletes entries with an id less than the provided id
 // and returns the number of entries deleted
 func (s *streamKey) trimBefore(id string) int {
-	fmt.Printf("executing trimBefore %s\n", id)
-	fmt.Printf("executing trimBefore LOCKED %s\n", id)
-
 	s.mu.Lock()
 	var delete []string
 	for _, entry := range s.entries {
@@ -281,7 +278,6 @@ func (s *streamKey) trimBefore(id string) int {
 		}
 	}
 	s.mu.Unlock()
-	fmt.Printf("calling delete\n")
 	s.delete(delete)
 	return len(delete)
 }
